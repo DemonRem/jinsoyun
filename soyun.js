@@ -7,11 +7,10 @@ const dateformat = require('dateformat');
 const delay = require('delay');
 const https = require('https');
 
-const secret = require("./secret.json");
 const config = require("./config.json");
 
 const koldrakTime = require("./data/koldrak-time.json");
-//const items = require("./data/list-item.json"); disabled for future update
+const items = require("./data/list-item.json");
 const quests = require("./data/list-quest.json");
 const rewards = require("./data/list-challenges-rewards.json");
 const classDataSource = require("./data/list-classdata-source.json");
@@ -23,10 +22,10 @@ const eventNext = require("./data/data-event-next.json"); // For testing the nex
 
 const clientDiscord = new Discord.Client();
 const clientTwitter = new Twitter({
-	consumer_key: secret.TWITTER_CONSUMER_KEY,
-	consumer_secret: secret.TWITTER_CONSUMER_SECRET,
-	access_token_key: secret.TWITTER_ACCESS_TOKEN_KEY,
-	access_token_secret: secret.TWITTER_ACCESS_TOKEN_SECRET
+	consumer_key: process.env.TWITTER_CONSUMER_KEY,
+	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
 
 
@@ -440,7 +439,7 @@ function setCharacterPlacement(rank){
 // Discord stuff start here
 
 // Bot token here
-clientDiscord.login(secret.DISCORD_APP_TOKEN).catch(error => {
+clientDiscord.login(process.env.DISCORD_APP_TOKEN).catch(error => {
 	console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy hh:MM:ss")+" ] > Warning: Unable to start the bot, "+error);
 });
 
@@ -570,8 +569,6 @@ clientDiscord.on("message", async (message) => {
 
 					case 'status':
 						const m = await message.channel.send("Checking...");
-						var dateNow = Date.now();
-							dateNow = dateNow.toISOString();
 
 						// statuspage stuff
 						var discordStatus = await getSiteData(config.API_ADDRESS[3].address);
@@ -626,7 +623,7 @@ clientDiscord.on("message", async (message) => {
 									},
 									{
 										"name": "About",
-										"value": "- Bot maintaned and developed by **[ln2r](https://ln2r.web.id/)** using **[discord.js](https://discord.js.org/)** node.js module. \n- Market and player data fetched using **[Silveress BnS API](https://bns.silveress.ie/)**. \n- Special thanks to **Grumpy Butts** discord server for letting me using their server for field testing.\n\n*Bot hosted using Glitch [jinsoyun-glitch](https://api.glitch.com/jinsoyun-glitch/git)*"
+										"value": "- Bot maintaned and developed by **[ln2r](https://ln2r.web.id/)** using **[discord.js](https://discord.js.org/)** node.js module. \n- Market and player data fetched using **[Silveress BnS API](https://bns.silveress.ie/)**. \n- Special thanks to **Grumpy Butts** discord server for letting me using their server for field testing.\n\n*Bot hosted using Glitch - [jinsoyun-glitch](https://api.glitch.com/jinsoyun-glitch/git)*"
 									}
 								]
 							}
