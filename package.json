@@ -1,12 +1,17 @@
 {
   "name": "jinsoyun",
-  "version": "1.14.4",
+  "version": "1.14.4b",
   "description": "Grumpy Butts very own discord bot",
   "main": "soyun.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node soyun.js"
   },
-  "keywords": [],
+  "keywords": [
+    "heroku",
+    "discord.js",
+    "grumpy butts"
+  ],
   "author": "ln2r",
   "license": "MIT",
   "dependencies": {
