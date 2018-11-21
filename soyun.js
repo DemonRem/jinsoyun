@@ -8,15 +8,15 @@ const delay = require('delay');
 const https = require('https');
 const fuzz = require('fuzzball');
 
-const secret = require("./secret.json");
+//const secret = require("./secret.json");
 const config = require("./config.json");
 
 const clientDiscord = new Discord.Client();
 const clientTwitter = new Twitter({
-	consumer_key: secret.TWITTER_CONSUMER_KEY,
-	consumer_secret: secret.TWITTER_CONSUMER_SECRET,
-	access_token_key: secret.TWITTER_ACCESS_TOKEN_KEY,
-	access_token_secret: secret.TWITTER_ACCESS_TOKEN_SECRET
+	consumer_key: process.env.TWITTER_CONSUMER_KEY,
+	consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+	access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
 
 // Querry payload status
@@ -516,7 +516,7 @@ function getGuildName(item, index) {
 // Discord stuff start here
 
 // Bot token here
-clientDiscord.login(secret.DISCORD_APP_TOKEN).catch(error => {
+clientDiscord.login(process.env.DISCORD_APP_TOKEN).catch(error => {
 	console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Warning: Unable to start the bot, "+error);
 });
 
