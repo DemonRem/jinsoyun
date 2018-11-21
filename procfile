@@ -1,1 +1,2 @@
+web: node soyun.js
 worker: node soyun.js
