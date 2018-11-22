@@ -1,6 +1,6 @@
 {
 	"MAINTENANCE_MODE": false,
-	"ARCHIVING": true,
+	"ARCHIVING": false,
 	"DEFAULT_BOT_ADMIN": "132712988875423745",
 	"DEFAULT_PREFIX": "!",
 	"DEFAULT_TEXT_CHANNEL": "random-chats",

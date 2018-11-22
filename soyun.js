@@ -1972,21 +1972,25 @@ clientDiscord.on("message", async (message) => {
 								clientDiscord.emit("message", "!err |"+err.stack+"|");
 							}
 						});
-					}	
+					}
+
+					// making a copy for archive
+					fs.writeFile('./archive/market-data-archive '+Date.now()+'.json', JSON.stringify(marketListCurrent, null, '\t'), function (err) {
+						if(err){
+							console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Warning: There's an issue when archiving 'list-market-data.json', "+err);
+							clientDiscord.emit("message", "!err |"+err.stack+"|");
+						}
+					});
+
+					var archivedData = marketListCurrent.length - 1;	
+				}else{
+					var archivedData = 0;
 				}				
 
 				// writing the data into a file
 				fs.writeFile('./data/list-market-data.json', JSON.stringify(marketListCurrent, null, '\t'), function (err) {
 					if(err){
 						console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Warning: There's an issue when updating 'list-market-data.json', "+err);
-						clientDiscord.emit("message", "!err |"+err.stack+"|");
-					}
-				})
-
-				// making a copy for archive
-				fs.writeFile('./archive/market-data-archive '+Date.now()+'.json', JSON.stringify(marketListCurrent, null, '\t'), function (err) {
-					if(err){
-						console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Warning: There's an issue when archiving 'list-market-data.json', "+err);
 						clientDiscord.emit("message", "!err |"+err.stack+"|");
 					}
 				});
@@ -2003,9 +2007,8 @@ clientDiscord.on("message", async (message) => {
 					
 				}
 				
-				console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Info: "+foundCount+" market data updated, "+(marketListCurrent.length - 1)+" data archived");
-				foundCount = 0;
-				
+				console.log(" [ "+dateformat(Date.now(), "UTC:dd-mm-yy HH:MM:ss")+" ] > Info: "+foundCount+" market data updated, "+archivedData+" data archived");
+				foundCount = 0;				
 			break;
 
 			// For testing the next event data
